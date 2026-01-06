@@ -1,0 +1,12 @@
+services:
+  angular-ssr-app:
+    build:
+      context: .
+
+    # Map port 4000 in the container to port 3000 on the host machine
+    ports:
+      - '3000:4000'
+
+    # Load environment variables from the .env file
+    env_file:
+      - .env
