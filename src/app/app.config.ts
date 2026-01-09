@@ -4,13 +4,13 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { ssrRequestInterceptor } from './ssr-request-interceptor';
+import { apiUrlAlignmentInterceptor } from './api-url-alignment-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(withFetch(), withInterceptors([ssrRequestInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([apiUrlAlignmentInterceptor])),
     provideClientHydration(withEventReplay()),
   ],
 };
