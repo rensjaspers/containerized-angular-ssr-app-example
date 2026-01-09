@@ -1,59 +1,22 @@
-# ContainerizedAngularSsrAppExample
+# Containerized Angular SSR App Example
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
+This repository is a working example for the blog post: [Dockerizing an Angular SSR App for Production: Single-Origin API Proxy & Working Transfer Cache](https://www.rensjaspers.nl/blog/dockerizing-an-angular-ssr-app-for-production-single-origin-api-proxy-working-transfer-cache)
 
-## Development server
+## Running the Project
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Start the containerized application using Docker Compose:
 
 ```bash
-ng generate component component-name
+docker compose up --build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Once the container is running, navigate to [http://localhost:3000](http://localhost:3000) in your browser.
 
-```bash
-ng generate --help
-```
+## Verifying the Transfer Cache
 
-## Building
+To verify that HTTP state transfer cache is working correctly:
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Open your browser's Developer Tools (F12)
+2. Go to the **Network** tab
+3. Refresh the page
+4. Notice that there is **no additional HTTP call** to fetch the todos data — the data is transferred from the server-side render and reused on the client side, avoiding duplicate requests
